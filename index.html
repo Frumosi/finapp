@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>FinApp Bank — Modern Personal Banking</title>
+  <meta name="description" content="Demo bank frontpage for FinApp Bank — modern, responsive, and accessible single-file template." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%230077ff'/%3E%3Ctext x='50' y='57' font-size='40' text-anchor='middle' fill='white' font-family='Arial'%3EA%3C/text%3E%3C/svg%3E">
+  <style>
+    /* ---------- Reset & base ---------- */
+    :root{
+      --bg: #f6f9ff;
+      --card: #ffffff;
+      --muted: #6b7280;
+      --accent: linear-gradient(90deg,#0066ff 0%,#00c2ff 100%);
+      --accent-solid: #0066ff;
+      --glass: rgba(255,255,255,0.6);
+      --radius: 14px;
+      --shadow: 0 8px 30px rgba(12,20,50,0.08);
+      --glass-shadow: 0 6px 20px rgba(0,0,0,0.06);
+      color-scheme: light;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      background: radial-gradient(800px 400px at 10% 10%, rgba(0,194,255,0.08), transparent), var(--bg);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.4;
+      color:#0b1220;
+      padding:36px 20px;
+    }
+
+    /* ---------- Layout ---------- */
+    .container{max-width:1200px;margin:0 auto}
+    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px}
+    .brand{display:flex;align-items:center;gap:14px}
+    .logo{width:56px;height:56px;border-radius:12px;background:var(--accent);display:grid;place-items:center;color:white;font-weight:700;box-shadow:0 6px 18px rgba(0,102,255,0.18)}
+    .brand h1{font-size:20px;margin:0}
+    .brand p{margin:0;font-size:12px;color:var(--muted)}
+
+    nav{display:flex;gap:14px;align-items:center}
+    .nav-link{padding:10px 14px;border-radius:10px;text-decoration:none;color:inherit;font-weight:600}
+    .nav-link:hover{background:rgba(0,0,0,0.03)}
+
+    .actions{display:flex;gap:10px}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;border:0;background:var(--card);box-shadow:var(--glass-shadow);cursor:pointer}
+    .btn.primary{background:var(--accent);color:white;box-shadow:0 8px 30px rgba(0,102,255,0.18)}
+    .btn.ghost{background:transparent}
+
+    /* ---------- Hero ---------- */
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center;margin-bottom:36px}
+    .hero-card{background:linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.7));backdrop-filter: blur(6px);border-radius:var(--radius);padding:32px;box-shadow:var(--shadow)}
+    .tag{display:inline-block;padding:6px 10px;border-radius:999px;background:#f0f9ff;color:#0366d6;font-weight:700;font-size:12px;margin-bottom:12px}
+    .headline{font-size:28px;margin:0 0 12px}
+    .lead{color:var(--muted);margin:0 0 18px}
+
+    .feature-list{display:flex;gap:12px;flex-wrap:wrap}
+    .feature{flex:1 1 180px;background:linear-gradient(90deg, rgba(0,198,255,0.06), rgba(0,102,255,0.03));padding:12px;border-radius:10px;font-weight:600}
+
+    .hero-cta{display:flex;gap:10px;margin-top:18px}
+
+    /* ---------- Account Summary (right) ---------- */
+    .summary{background:linear-gradient(180deg,#ffffff, #f8fbff);padding:18px;border-radius:14px}
+    .balance{font-size:18px;font-weight:700}
+    .balance-amount{font-size:28px;margin-top:6px}
+    .summary .mini{display:flex;justify-content:space-between;gap:8px;margin-top:12px}
+    .mini div{font-size:13px;color:var(--muted)}
+
+    /* ---------- Features / Cards ---------- */
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:36px}
+    .card{background:var(--card);padding:18px;border-radius:14px;box-shadow:var(--shadow)}
+    .card h3{margin:0 0 8px}
+    .card p{margin:0;color:var(--muted);font-size:14px}
+
+    /* ---------- CTA strip ---------- */
+    .cta-strip{background:linear-gradient(90deg,#0047cc,#00aefd);color:white;padding:18px;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:36px}
+
+    /* ---------- Testimonials / Footer ---------- */
+    .testimonials{display:flex;gap:12px}
+    .testi{flex:1;padding:14px;border-radius:12px;background:linear-gradient(90deg,rgba(0,0,0,0.02),transparent)}
+    footer{margin-top:36px;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;align-items:center}
+
+    /* ---------- Responsive ---------- */
+    @media (max-width:980px){
+      .hero{grid-template-columns:1fr;}
+      .grid-3{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width:640px){
+      body{padding:18px}
+      .grid-3{grid-template-columns:1fr}
+      nav{display:none}
+      header{flex-direction:column;align-items:flex-start;gap:12px}
+      .actions{width:100%;justify-content:flex-end}
+    }
+
+    /* ---------- Tiny helpers ---------- */
+    .muted{color:var(--muted)}
+    .pill{display:inline-block;padding:6px 10px;border-radius:999px;background:#eef6ff;font-weight:700}
+
+    /* ---------- Login modal ---------- */
+    .modal{position:fixed;inset:0;display:grid;place-items:center;background:rgba(10,12,20,0.35);visibility:hidden;opacity:0;transition:all .18s ease}
+    .modal.open{visibility:visible;opacity:1}
+    .modal-card{width:420px;background:var(--card);border-radius:14px;padding:22px;box-shadow:0 30px 60px rgba(12,20,50,0.25)}
+    .field{display:flex;flex-direction:column;margin-bottom:12px}
+    label{font-size:13px;margin-bottom:6px}
+    input{padding:10px;border-radius:10px;border:1px solid #e6eef9;font-size:14px}
+    .small{font-size:13px;color:var(--muted)}
+
+    /* ---------- micro animations ---------- */
+    .sparkle{position:relative}
+    .sparkle::after{content:'';position:absolute;right:-30px;top:-20px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle at 30% 30%, rgba(0,194,255,0.12), transparent 40%);pointer-events:none}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo" aria-hidden> A </div>
+        <div>
+          <h1>FinApp Bank</h1>
+          <p class="muted">Modern banking. Friendly fees.</p>
+        </div>
+      </div>
+
+      <nav aria-label="Main navigation">
+        <a class="nav-link" href="#products">Products</a>
+        <a class="nav-link" href="#rates">Rates</a>
+        <a class="nav-link" href="#help">Help</a>
+        <a class="nav-link" href="#careers">Careers</a>
+      </nav>
+
+      <div class="actions">
+        <button class="btn ghost" id="demoBtn" title="Try the demo">View Demo</button>
+        <button class="btn primary" id="openLogin">Log in</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <article class="hero-card">
+          <span class="tag">No monthly fees • Instant setup</span>
+          <h2 class="headline">Banking that fits your life — fast, simple, secure.</h2>
+          <p class="lead">Open an account in minutes, send money, manage budgets, and earn market-leading savings rates — all from our app or web dashboard.</p>
+
+          <div class="feature-list">
+            <div class="feature">Instant transfers</div>
+            <div class="feature">Zero monthly fees</div>
+            <div class="feature">Card controls</div>
+            <div class="feature">Smart budgeting</div>
+          </div>
+
+          <div class="hero-cta">
+            <button class="btn primary" id="ctaSignup">Get started</button>
+            <button class="btn" id="learnMore">Learn more</button>
+          </div>
+
+          <div style="margin-top:18px;font-size:13px" class="muted">Trusted by <strong id="usersCount">0</strong> customers • 24/7 live support</div>
+        </article>
+
+        <aside class="summary">
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <div>
+              <div class="small muted">Checking balance</div>
+              <div class="balance">Available</div>
+              <div class="balance-amount" id="balance">€12,540.20</div>
+            </div>
+            <div style="text-align:right">
+              <div class="small muted">Card</div>
+              <div class="pill">Platinum • 2028</div>
+            </div>
+          </div>
+
+          <div class="mini" style="margin-top:16px">
+            <div>
+              <div class="small muted">Monthly income</div>
+              <div>€6,800</div>
+            </div>
+            <div>
+              <div class="small muted">Spending (30d)</div>
+              <div>€1,120</div>
+            </div>
+          </div>
+
+          <div style="margin-top:14px;display:flex;gap:10px">
+            <button class="btn" id="sendMoney">Send</button>
+            <button class="btn" id="requestMoney">Request</button>
+          </div>
+        </aside>
+      </section>
+
+      <section class="grid-3" id="products">
+        <div class="card">
+          <h3>Everyday Checking</h3>
+          <p>No hidden fees, instant payments, and contactless cards. Ideal for daily spending.</p>
+        </div>
+        <div class="card">
+          <h3>Savings & Goals</h3>
+          <p>Set goals, automate deposits, and watch your balance grow with competitive interest.</p>
+        </div>
+        <div class="card">
+          <h3>Business Accounts</h3>
+          <p>Tools for startups and small businesses — invoicing, payroll integrations, and analytics.</p>
+        </div>
+      </section>
+
+      <section class="cta-strip">
+        <div>
+          <strong style="font-size:18px">Open an account today — takes under 3 minutes.</strong>
+          <div class="small muted">ID verification and basic KYC required for real accounts (demo mode here).</div>
+        </div>
+        <div style="display:flex;gap:10px">
+          <button class="btn" id="learnHow">How it works</button>
+          <button class="btn primary" id="signupTop">Create account</button>
+        </div>
+      </section>
+
+      <section style="margin-bottom:24px">
+        <h2 style="margin:0 0 12px">What customers love</h2>
+        <div class="testimonials">
+          <div class="testi card">
+            <p>"Fast support and the app helps me stick to my budget."</p>
+            <div class="small muted" style="margin-top:8px">— Lisa R., Freelancer</div>
+          </div>
+          <div class="testi card">
+            <p>"Love the instant transfers. No waiting for payroll."</p>
+            <div class="small muted" style="margin-top:8px">— Omar T., Small business owner</div>
+          </div>
+          <div class="testi card">
+            <p>"Great rates on savings and easy sub-accounts for goals."</p>
+            <div class="small muted" style="margin-top:8px">— Priya K., Teacher</div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div>© <span id="year">2025</span> FinApp Bank</div>
+      <div class="muted">Legal • Privacy • Accessibility</div>
+    </footer>
+  </div>
+
+  <!-- Login modal (demo) -->
+  <div class="modal" id="loginModal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-card" role="document">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <h3 style="margin:0">Log in to FinApp</h3>
+        <button class="btn" id="closeModal" aria-label="Close">✕</button>
+      </div>
+      <p class="small muted">This is a demo. Enter any credentials to proceed.</p>
+
+      <form id="loginForm" onsubmit="return false">
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" type="email" placeholder="you@example.com" required />
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input id="password" type="password" placeholder="••••••••" required />
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+          <label class="small"><input type="checkbox" id="remember" /> Remember me</label>
+          <a class="small muted" href="#">Forgot?</a>
+        </div>
+        <div style="display:flex;gap:8px">
+          <button class="btn primary" id="loginSubmit">Sign in</button>
+          <button class="btn ghost" id="cancelLogin">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Tiny interactive/demo scripts (no backend)
+    const loginModal = document.getElementById('loginModal');
+    const openLogin = document.getElementById('openLogin');
+    const closeModal = document.getElementById('closeModal');
+    const cancelLogin = document.getElementById('cancelLogin');
+    const loginSubmit = document.getElementById('loginSubmit');
+    const usersCountEl = document.getElementById('usersCount');
+    const yearEl = document.getElementById('year');
+
+    yearEl.textContent = new Date().getFullYear();
+
+    function openModal(){
+      loginModal.classList.add('open');
+      loginModal.setAttribute('aria-hidden','false');
+    }
+    function close(){
+      loginModal.classList.remove('open');
+      loginModal.setAttribute('aria-hidden','true');
+    }
+
+    openLogin.addEventListener('click', openModal);
+    closeModal.addEventListener('click', close);
+    cancelLogin.addEventListener('click', close);
+
+    loginSubmit.addEventListener('click', () => {
+      // simple demo behaviour
+      const email = document.getElementById('email').value.trim();
+      const pass = document.getElementById('password').value.trim();
+      if(!email || !pass){
+        alert('Please enter email and password (demo).');
+        return;
+      }
+      close();
+      // pretend we logged in — show a toast
+      showToast('Welcome back — this is a demo login.');
+    });
+
+    // Simple toast
+    function showToast(msg){
+      const t = document.createElement('div');
+      t.textContent = msg;
+      t.style.position='fixed';
+      t.style.right='20px';
+      t.style.bottom='20px';
+      t.style.padding='12px 16px';
+      t.style.borderRadius='10px';
+      t.style.boxShadow='0 12px 30px rgba(2,10,55,0.15)';
+      t.style.background='white';
+      document.body.appendChild(t);
+      setTimeout(()=>{t.style.opacity='0';t.style.transform='translateY(12px)';},2200);
+      setTimeout(()=>t.remove(),3000);
+    }
+
+    // Demo interactions
+    document.getElementById('ctaSignup').addEventListener('click', () => {
+      showToast('Sign-up flow (demo) — no real account will be created.');
+    });
+    document.getElementById('demoBtn').addEventListener('click', () => {
+      // animate count
+      animateCount(usersCountEl, 0, 12480, 1200);
+      showToast('Demo toggled — numbers are simulated.');
+    });
+
+    // animate balance slightly when page loads
+    animateCurrency('balance', 12540.20, 800);
+
+    function animateCount(el, from, to, ms){
+      const start = performance.now();
+      function frame(now){
+        const p = Math.min(1,(now-start)/ms);
+        const cur = Math.floor(from + (to-from)*easeOutCubic(p));
+        el.textContent = cur.toLocaleString();
+        if(p<1) requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    }
+    function animateCurrency(id, to, ms){
+      const el = document.getElementById(id);
+      const start = performance.now();
+      const from = to * 0.73;
+      function f(now){
+        const p = Math.min(1,(now-start)/ms);
+        const val = from + (to-from)*easeOutCubic(p);
+        el.textContent = val.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2}) ;
+        if(p<1) requestAnimationFrame(f);
+      }
+      requestAnimationFrame(f);
+    }
+    function easeOutCubic(t){return 1 - Math.pow(1-t,3)}
+
+    // small accessibility: close modal when pressing Escape
+    window.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape') close();
+    });
+
+    // keyboard trap not implemented (demo only) — do not use for production
+
+    // small responsiveness: if user clicks outside modal, close
+    loginModal.addEventListener('click', (e) => { if(e.target === loginModal) close(); });
+
+    // Demo buttons for other UI
+    document.getElementById('learnMore').addEventListener('click', ()=> showToast('Here you would be taken to product details.'));
+    document.getElementById('signupTop').addEventListener('click', ()=> showToast('Create account flow (demo).'));
+    document.getElementById('learnHow').addEventListener('click', ()=> showToast('Short explainer: ID check, deposit, done.'));
+
+    // small helper: automatic demo count at load
+    setTimeout(()=>{ animateCount(usersCountEl, 0, 38520, 1400); }, 700);
+
+  </script>
+</body>
+</html>
